@@ -1,13 +1,25 @@
 let n 
 初始化()
 
-setInterval(()=>{
+var timerId = setInterval(()=>{
     makeLeave(getImage(n))
     .one('transitionend',(x)=>{makeEnter($(x.currentTarget))
 })
 makeCurrent(getImage(n+1))
     n += 1
 },3000)
+$('.window').on('mouseenter',function(){
+    window.clearInterval(timerId)
+  }) //进入画面停止轮播
+$('.window').on('mouseleave',function(){
+    timerId = setInterval(()=>{
+        makeLeave(getImage(n))
+        .one('transitionend',(x)=>{makeEnter($(x.currentTarget))
+    })
+    makeCurrent(getImage(n+1))
+        n += 1
+    },3000)
+}) //离开画面继续轮播
 
 
 
