@@ -20,7 +20,20 @@ $('.window').on('mouseleave',function(){
         n += 1
     },3000)
 }) //离开画面继续轮播
-
+//解决离开页面轮播混乱的bug
+document.addEventListener('visibilitychange',function(){
+    if(document.hidden){
+        window.clearInterval(timerId)
+    }else{
+        timerId = setInterval(()=>{
+            makeLeave(getImage(n))
+            .one('transitionend',(x)=>{makeEnter($(x.currentTarget))
+        })
+        makeCurrent(getImage(n+1))
+            n += 1
+        },3000)
+    }
+})
 
 
 
